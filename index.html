@@ -2,14 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <!-- viewport-fit=cover lets the app draw under the notch/home-indicator
+       safe areas in standalone (installed) mode instead of just stopping
+       short of them -- src/style.css then pushes real content clear of
+       those areas itself via env(safe-area-inset-*), see the notch note
+       in README.md. -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <!-- Installable app: manifest + theme color drive Android/Chrome's
+       "Add to Home Screen" / install prompt, launching with
+       display: standalone (no address bar, no browser chrome). -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#131120" />
+  <meta name="background-color" content="#131120" />
+
+  <!-- iOS/iPadOS Safari doesn't use the manifest for "Add to Home Screen";
+       these legacy Apple meta tags are what actually gets it to launch
+       standalone (no address bar) there instead. -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="JWEE-KTV" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+
+  <link rel="icon" href="./favicon.png" />
+
   <title>JWEE-KTV</title>
-  <script type="module" crossorigin src="./assets/index-i5xjZc1h.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-4BBKpBBs.css">
+  <script type="module" crossorigin src="./assets/index-CseBcjQR.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CA7hI1gb.css">
 </head>
 <body>
   <div id="app"></div>
+  <script>
+    // Registered purely so the browser will consider this app installable
+    // (see public/sw.js) -- it doesn't cache or intercept anything.
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {
+          /* not fatal -- the app works the same either way, it just won't
+             be offered as an installable app in browsers that require this */
+        });
+      });
+    }
+  </script>
 </body>
 </html>
