@@ -1,7 +1,7 @@
 {
   "name": "JWEE Karaoke",
   "short_name": "JWEE-KTV",
-  "description": "Peer-to-peer karaoke: Stage Screen hosts, Song List and Control Room connect to it directly.",
+  "description": "Peer-to-peer karaoke: Stage hosts, Songs and Control connect to it directly.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
